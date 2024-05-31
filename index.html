@@ -17,18 +17,8 @@
       const seconds = now.getSeconds().toString().padStart(2, '0');
       document.getElementById('clock').textContent = `${day}, ${date}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     }
-    async function fetchWeather() {
-      const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
-      const city = 'Fairfax'; // Replace with your city
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-      const response = await fetch(url);
-      const data = await response.json();
-      const temp = data.main.temp;
-      document.getElementById('weather').textContent = `Current temperature in ${city}: ${temp}°C`;
-    }
     window.onload = function() {
       updateClock();
-      fetchWeather();
       setInterval(updateClock, 1000);
     };
   </script>
@@ -82,14 +72,8 @@
     </tr>
   </table>
 
-  <!-- Additional sections for clock, weather, and map -->
+  <!-- Clock Section -->
   <div id="clock"></div>
-  <div id="weather"></div>
-  <div id="map">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.9115880548883!2d-122.08424938468183!3d37.421999779825604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba6f0c9e5e09%3A0x2c04c6a037fc2b2e!2sGoogleplex!5e0!3m2!1sen!2sus!4v1614223641656!5m2!1sen!2sus"
-      width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-  </div>
 
   <p></p>
   <a href="hobbies.html">My Hobbies</a><br>
