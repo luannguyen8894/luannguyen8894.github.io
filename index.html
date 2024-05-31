@@ -1,81 +1,98 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Luan's personal site</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-    #clock {
-      font-size: 1.5em;
-      margin-top: 20px;
-    }
-    </style>
-    <script>
+<head>
+  <meta charset="utf-8">
+  <title>Luan's personal site</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
     function updateClock() {
       const now = new Date();
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const day = days[now.getDay()];
+      const date = now.getDate().toString().padStart(2, '0');
+      const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
+      const year = now.getFullYear();
       const hours = now.getHours().toString().padStart(2, '0');
       const minutes = now.getMinutes().toString().padStart(2, '0');
       const seconds = now.getSeconds().toString().padStart(2, '0');
-      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('clock').textContent = `${day}, ${date}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     }
-    setInterval(updateClock, 1000);
-    </script>
-  </head>
-  <body onload="updateClock()">
-    <table cellspacing ="20">
-      <tr>
-        <td><img src="images/my_picture2.png" alt="my_picture" width="300" height="300"></td>
-        <td><h1>Luan Nguyen</h1>
+    async function fetchWeather() {
+      const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
+      const city = 'Fairfax'; // Replace with your city
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+      const response = await fetch(url);
+      const data = await response.json();
+      const temp = data.main.temp;
+      document.getElementById('weather').textContent = `Current temperature in ${city}: ${temp}°C`;
+    }
+    window.onload = function() {
+      updateClock();
+      fetchWeather();
+      setInterval(updateClock, 1000);
+    };
+  </script>
+</head>
+<body>
+  <table cellspacing="20">
+    <tr>
+      <td><img src="images/my_picture2.png" alt="my_picture" width="300" height="300"></td>
+      <td>
+        <h1>Luan Nguyen</h1>
         <p>I'm a CS major student at <strong>George Mason</strong> University.</p>
-        <p>I'm on my way to becoming a software engineer in the future.</p></td>
-      </tr>
-    </table>
-    <hr>
-    <h3>Education</h3>
-    <table  cellspacing="10">
-      <thead>
-        <tr>
-          <th>Dates</th>
-          <th>School</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2017 - 2020</td>
-          <td>Northern Virginia Commnunity College</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td>2021 - 2023</td>
-          <td>George Mason University</td>
-        </tr>
-      </tfoot>
-    </table>
-    <h3>Skills</h3>
-    <table  cellspacing="10">
+        <p>I'm on my way to becoming a software engineer in the future.</p>
+      </td>
+    </tr>
+  </table>
+  <hr>
+  <h3>Education</h3>
+  <table cellspacing="10">
+    <thead>
       <tr>
-        <td>
-          <b>Languages</b>
-        </td>
-        <td>C, Java, C#, HTML, CSS</td>
+        <th>Dates</th>
+        <th>School</th>
       </tr>
+    </thead>
+    <tbody>
       <tr>
-        <td>
-          <b>Databases</b>
-        </td>
-        <td>MySQL</td>
+        <td>2017 - 2020</td>
+        <td>Northern Virginia Commnunity College</td>
       </tr>
+    </tbody>
+    <tfoot>
       <tr>
-        <td>
-          <b>Developer Tools</b>
-        </td>
-        <td>Eclipse, Microsoft Visual Studio, Atom, Putty, GitHub</td>
+        <td>2021 - 2023</td>
+        <td>George Mason University</td>
       </tr>
-    </table>
-    <p></p>
-      <a href="hobbies.html">My Hobbies</a><br>
-      <a href="contact-me.html">Contact Me</a>
-    <div id="clock"></div>
-  </body>
+    </tfoot>
+  </table>
+  <h3>Skills</h3>
+  <table cellspacing="10">
+    <tr>
+      <td><b>Languages</b></td>
+      <td>C, Java, C#, HTML, CSS</td>
+    </tr>
+    <tr>
+      <td><b>Databases</b></td>
+      <td>MySQL</td>
+    </tr>
+    <tr>
+      <td><b>Developer Tools</b></td>
+      <td>Eclipse, Microsoft Visual Studio, Atom, Putty, GitHub</td>
+    </tr>
+  </table>
+
+  <!-- Additional sections for clock, weather, and map -->
+  <div id="clock"></div>
+  <div id="weather"></div>
+  <div id="map">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.9115880548883!2d-122.08424938468183!3d37.421999779825604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba6f0c9e5e09%3A0x2c04c6a037fc2b2e!2sGoogleplex!5e0!3m2!1sen!2sus!4v1614223641656!5m2!1sen!2sus"
+      width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
+  <p></p>
+  <a href="hobbies.html">My Hobbies</a><br>
+  <a href="contact-me.html">Contact Me</a>
+</body>
 </html>
