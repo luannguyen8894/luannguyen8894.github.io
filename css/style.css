@@ -1,20 +1,90 @@
 body {
-  background-color: #CFE8A9;
+    font-family: Arial, sans-serif;
 }
-hr {
-  border-style: none;
-  border-top-style: dotted;
-  border-width: 8px;
-  border-color: grey;
-  width: 30%;
+
+header {
+    background: #333;
+    color: #fff;
 }
-h1 {
-  color: #66BFBF;
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
 }
-h3 {
-  color: #66BFBF;
+
+header p {
+    font-size: 1.5rem;
+    margin-top: 0;
 }
-#clock {
-  font-size: 1.5em;
-  margin-top: 20px;
+
+section {
+    padding: 2rem 0;
+}
+
+#about img {
+    max-width: 100%;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+}
+
+.element {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: inline-block; /* Display the list items in a line */
+}
+
+li {
+  display: inline-block;
+  margin: 0 3px;
+}
+
+
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    margin: 20px auto;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+#status {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+button {
+    font-size: 1em;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
 }
