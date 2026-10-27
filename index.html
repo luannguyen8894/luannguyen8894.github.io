@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Luan Nguyen</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+  <script>document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+  /*
+    Layout: fixed-top glass nav, full-page scroll sections
+    Theme: Dark charcoal & warm brown — smoky glass, amber accents
+  */
+  :root {
+    --bg:           #1c1814;
+    --bg2:          #252019;
+    --glass:        rgba(50,42,34,0.72);
+    --glass-border: rgba(100,85,65,0.46);
+    --nav-glass:    rgba(24,20,16,0.90);
+    --fg:           #ede6dc;
+    --fg-2:         #9c8b78;
+    --accent:       #c49a4e;
+    --accent-soft:  rgba(196,154,78,0.14);
+    --shadow:       0 8px 32px rgba(0,0,0,0.45);
+    --r:            16px;
+    --ff-display:   'Plus Jakarta Sans', system-ui, sans-serif;
+    --ff-body:      'Inter', system-ui, sans-serif;
+    color-scheme: dark;
+  }
+  :root[data-theme="dark"], :root {
+    --bg:           #1c1814;
+    --bg2:          #252019;
+    --glass:        rgba(50,42,34,0.72);
+    --glass-border: rgba(100,85,65,0.46);
+    --nav-glass:    rgba(24,20,16,0.90);
+    --fg:           #ede6dc;
+    --fg-2:         #9c8b78;
+    --accent:       #c49a4e;
+    --accent-soft:  rgba(196,154,78,0.14);
+    --shadow:       0 8px 32px rgba(0,0,0,0.45);
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--ff-body);
+    color: var(--fg);
+    background: var(--bg);
+    min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 15% 15%, rgba(180,120,50,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 85%, rgba(100,70,30,0.12) 0%, transparent 60%),
+      linear-gradient(145deg, var(--bg) 0%, var(--bg2) 100%);
+    z-index: -1;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    height: 62px;
+    padding-inline: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+    background: var(--nav-glass);
+    backdrop-filter: blur(24px) saturate(1.7);
+    -webkit-backdrop-filter: blur(24px) saturate(1.7);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-name {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+  }
+  .nav-links a {
+    display: block;
+    padding: 6px 15px;
+    border-radius: 8px;
+    font-size: 0.855rem;
+    font-weight: 500;
+    color: var(--fg-2);
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .nav-resume {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 0.845rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid rgba(196,154,78,0.22);
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    white-space: nowrap;
+  }
+  .nav-resume:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 4px 14px rgba(196,154,78,0.28);
+  }
+  .nav-resume svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* PAGE WRAPPER */
+  .page {
+    max-width: 1080px;
+    margin-inline: auto;
+    padding-inline: 40px;
+  }
+
+  /* SECTIONS */
+  section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 100px 72px;
+  }
+  .section-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: var(--ff-display);
+    font-size: clamp(1.75rem, 4vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    color: var(--fg);
+    text-wrap: balance;
+    margin-bottom: 40px;
+  }
+
+  /* GLASS UTILITY */
+  .g {
+    background: var(--glass);
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+  }
+
+  /* HERO */
+  #intro { gap: 24px; }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--fg);
+    align-self: flex-start;
+  }
+  .hero-badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #c49a4e;
+    box-shadow: 0 0 0 3px rgba(196,154,78,0.25);
+  }
+  .hero-name {
+    font-family: var(--ff-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    color: var(--fg);
+    text-wrap: balance;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--fg-2);
+    max-width: 480px;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* CLOCK — fixed floating widget */
+  .hero-clock {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    z-index: 100;
+    padding: 20px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+  .clock-time {
+    font-family: var(--ff-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .clock-ampm {
+    font-family: var(--ff-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .clock-date {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--fg-2);
+    letter-spacing: 0.03em;
+  }
+  .clock-sep { display: inline-block; }
+
+  @media (max-width: 720px) {
+    .hero-clock { right: 16px; bottom: 16px; padding: 14px 20px; }
+    .clock-time { font-size: 1.4rem; }
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .btn-solid {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(196,154,78,0.28);
+  }
+  .btn-solid:hover { transform: translateY(-2px); box-shadow: 0 7px 24px rgba(196,154,78,0.40); }
+  .btn-outline {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    color: var(--fg);
+  }
+  .btn-outline:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+  /* ABOUT */
+  #about { gap: 0; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 20px;
+  }
+  .about-body { padding: 36px 40px; }
+  .about-body p {
+    font-size: 1rem;
+    line-height: 1.78;
+    color: var(--fg-2);
+  }
+  .about-body p + p { margin-top: 18px; }
+  .about-stats { display: flex; flex-direction: column; gap: 16px; }
+  .stat { padding: 28px 30px; }
+  .stat-num {
+    font-family: var(--ff-display);
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-desc {
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: var(--fg-2);
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  /* PROJECTS */
+  #projects { gap: 0; }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .project-card {
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 52px rgba(0,0,0,0.35);
+  }
+  .project-icon {
+    width: 50px; height: 50px;
+    border-radius: 13px;
+    background: var(--accent-soft);
+    display: grid;
+    place-items: center;
+    font-size: 1.6rem;
+  }
+  .project-name {
+    font-family: var(--ff-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+  }
+  .project-blurb {
+    font-size: 0.875rem;
+    color: var(--fg-2);
+    line-height: 1.68;
+    flex: 1;
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  /* SKILLS */
+  #skills { gap: 0; }
+  .skill-stack { display: flex; flex-direction: column; gap: 16px; }
+  .skill-block { padding: 26px 32px; }
+  .skill-heading {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-2);
+    margin-bottom: 14px;
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    padding: 7px 15px;
+    border-radius: 8px;
+    font-size: 0.855rem;
+    font-weight: 500;
+    color: var(--fg);
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* CONTACT */
+  #contact { min-height: auto; padding-bottom: 100px; gap: 0; }
+  .contact-card {
+    padding: 52px 48px;
+    max-width: 580px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .contact-lead {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--fg-2);
+  }
+  .social-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .social-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 24px 32px;
+    border-radius: var(--r);
+    text-decoration: none;
+    color: var(--fg-2);
+    transition: transform 0.18s, box-shadow 0.18s, color 0.18s;
+    min-width: 110px;
+  }
+  .social-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.32);
+    color: var(--fg);
+  }
+  .social-btn svg {
+    width: 36px; height: 36px;
+    transition: transform 0.18s;
+  }
+  .social-btn:hover svg { transform: scale(1.08); }
+  .social-btn span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 22px 40px;
+    font-size: 0.8rem;
+    color: var(--fg-2);
+    background: var(--nav-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    nav { padding-inline: 18px; }
+    .nav-links a { padding: 5px 10px; font-size: 0.8rem; }
+    .page { padding-inline: 20px; }
+    section { padding-block: 88px 56px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-stats { flex-direction: row; }
+    .stat { flex: 1; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .contact-card { padding: 36px 28px; }
+  }
+  @media (max-width: 460px) {
+    .nav-links a { font-size: 0.72rem; padding: 4px 7px; }
+    .hero-actions { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; }
+  }
+
+  /* ── Chibi Cursor ── */
+  body, body * { cursor: none !important; }
+  #chibi-pos, #chibi-pos * { pointer-events: none; }
+  #chibi-pos { position: fixed; z-index: 99998; top: 0; left: -200px; }
+  #chibi-anim { transform: translate(-50%, 0%); transform-origin: 50% 0%; user-select: none; }
+  #chibi-anim.c-press-l, #chibi-anim.c-press-r { animation: c-squish 0.26s ease-out forwards; }
+  @keyframes c-squish {
+    0%   { transform: translate(-50%, 0%) scaleX(1)    scaleY(1); }
+    22%  { transform: translate(-50%, 0%) scaleX(1.18) scaleY(0.82); }
+    56%  { transform: translate(-50%, 0%) scaleX(0.92) scaleY(1.06); }
+    100% { transform: translate(-50%, 0%) scaleX(1)    scaleY(1); }
+  }
+  .c-arm-l { transform-origin: 8px 27px; }
+  .c-arm-r { transform-origin: 36px 27px; }
+  .c-press-l .c-arm-l { animation: c-arm-l 0.26s ease-out forwards; }
+  .c-press-r .c-arm-r { animation: c-arm-r 0.26s ease-out forwards; }
+  @keyframes c-arm-l {
+    0%   { transform: rotate(0deg); }
+    38%  { transform: rotate(110deg); }
+    72%  { transform: rotate(100deg); }
+    100% { transform: rotate(0deg); }
+  }
+  @keyframes c-arm-r {
+    0%   { transform: rotate(0deg); }
+    38%  { transform: rotate(-115deg); }
+    72%  { transform: rotate(-105deg); }
+    100% { transform: rotate(0deg); }
+  }
+  /* idle */
+  .c-eye-l { transform-origin: 16px 15px; }
+  .c-eye-r { transform-origin: 28px 15px; }
+  #chibi-anim.idle { animation: c-idle-bob 2.2s ease-in-out infinite; }
+  #chibi-anim.idle .c-eye-l { animation: c-blink 4s ease-in-out infinite; }
+  #chibi-anim.idle .c-eye-r { animation: c-blink 4s ease-in-out infinite 0.05s; }
+  @keyframes c-idle-bob {
+    0%   { transform: translate(-50%, 0%)   rotate(0deg); }
+    25%  { transform: translate(-50%, -3px) rotate(-1deg); }
+    50%  { transform: translate(-50%, -4px) rotate(0deg); }
+    75%  { transform: translate(-50%, -3px) rotate(1deg); }
+    100% { transform: translate(-50%, 0%)   rotate(0deg); }
+  }
+  @keyframes c-blink {
+    0%, 82%, 100% { transform: scaleY(1); }
+    88%           { transform: scaleY(0.08); }
+    93%           { transform: scaleY(1); }
+  }
+
+  /* ── Music Player ── */
+  .music-player {
+    position: fixed; top: 70px; right: 32px; z-index: 100;
+    display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+  }
+  .music-bars { display: flex; align-items: flex-end; gap: 2px; height: 14px; flex-shrink: 0; }
+  .music-bars span { width: 3px; border-radius: 2px; background: var(--accent); height: 3px; }
+  .music-bars.playing span:nth-child(1) { animation: mbar 0.80s ease-in-out infinite; }
+  .music-bars.playing span:nth-child(2) { animation: mbar 0.55s ease-in-out infinite 0.15s; }
+  .music-bars.playing span:nth-child(3) { animation: mbar 0.95s ease-in-out infinite 0.05s; }
+  .music-bars.playing span:nth-child(4) { animation: mbar 0.70s ease-in-out infinite 0.25s; }
+  @keyframes mbar { 0%,100%{height:3px}50%{height:12px} }
+  .music-title { font-size: 0.74rem; color: var(--fg-2); max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #music-btn {
+    width: 27px; height: 27px; border-radius: 50%; flex-shrink: 0;
+    background: none; border: 1.5px solid var(--glass-border); color: var(--accent);
+    font-size: 0.64rem; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, border-color 0.2s; line-height: 1;
+  }
+  #music-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+  #music-vol { width: 58px; accent-color: var(--accent); }
+
+  /* ── Hammer Smash Mode ── */
+  #smash-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9000; }
+  #shard-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9001; }
+  #hammer-cursor { position: fixed; font-size: 2.6rem; pointer-events: none; z-index: 9002; display: none; user-select: none; line-height: 1; transform: translate(-14px, -42px) rotate(-30deg); filter: drop-shadow(1px 3px 6px rgba(0,0,0,0.45)); transition: transform 0.07s; }
+  #hammer-cursor.swing { transform: translate(-14px, -42px) rotate(20deg) scale(1.15); }
+  body.hammer-mode, body.hammer-mode * { cursor: none !important; }
+  .hammer-btn { position: fixed; right: 32px; bottom: 176px; z-index: 201; background: var(--glass); border: 1.5px solid var(--glass-border); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: var(--r); padding: 10px 18px; font-family: var(--ff-body); font-size: 0.82rem; font-weight: 600; color: var(--fg); cursor: pointer; box-shadow: var(--shadow); display: flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.1s; }
+  .hammer-btn:hover { background: var(--accent-soft); transform: scale(1.05); }
+  .hammer-btn.active { background: rgba(210,50,50,0.13); border-color: rgba(210,50,50,0.38); color: #b83030; }
+  #smash-count { position: fixed; right: 32px; bottom: 254px; z-index: 201; font-family: var(--ff-display); font-size: 0.73rem; font-weight: 700; color: var(--accent); background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 5px 13px; border-radius: 50px; display: none; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#intro" class="nav-name">Luan Nguyen</a>
+  <ul class="nav-links">
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="Luan_Nguyen_Resume.pdf" download class="nav-resume">
+    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 1v8M5 6l3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M2 11v2a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    Resume
+  </a>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section id="intro">
+    <div class="hero-left">
+      <div class="hero-badge g">
+        <span class="hero-badge-dot"></span>
+        Open to opportunities
+      </div>
+      <h1 class="hero-name">Hi, I'm<br>Luan Nguyen</h1>
+      <p class="hero-sub">Computer Science graduate from George Mason University, building clean and purposeful web applications.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-solid">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-eyebrow">Background</p>
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid">
+      <div class="g about-body">
+        <p>I'm a CS grad from George Mason who genuinely enjoys picking up new things — whether it's a framework I've never touched or a concept that takes a few tries to click. I'm patient, and I don't shy away from problems that take a while to solve.</p>
+        <p>Outside of coding, I work part-time as a waiter at a local restaurant. When I'm not on shift, I'm usually building small apps that solve everyday problems — the kind of tools I'd actually want to use myself.</p>
+      </div>
+      <div class="about-stats">
+        <div class="g stat">
+          <div class="stat-num">3.45</div>
+          <div class="stat-desc">GPA — George Mason University</div>
+        </div>
+        <div class="g stat">
+          <div class="stat-num">B.S.</div>
+          <div class="stat-desc">Computer Science<br>George Mason University</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-eyebrow">Work</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+      <div class="g project-card">
+        <div class="project-icon">📊</div>
+        <div class="project-name">Manga Analytics Data Pipeline <span class="tag" style="font-size:0.65rem;vertical-align:middle;margin-left:4px;">In Progress</span></div>
+        <p class="project-blurb">Building a Bronze/Silver/Gold ETL pipeline to collect manga metadata from public APIs, clean and aggregate datasets with PySpark, and visualize trends via AWS S3 and Databricks.</p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">PySpark</span>
+          <span class="tag">SQL</span>
+          <span class="tag">AWS S3</span>
+        </div>
+      </div>
+      <div class="g project-card">
+        <div class="project-icon">📖</div>
+        <div class="project-name">Manga Translator</div>
+        <p class="project-blurb">Desktop app that automates English-to-Vietnamese comic translation using the Claude Vision API — with model selection, content-hash caching, background processing, and image-resolution optimization for batch runs.</p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">PySide6</span>
+          <span class="tag">Claude Vision API</span>
+          <span class="tag">PyMuPDF</span>
+        </div>
+      </div>
+      <div class="g project-card">
+        <div class="project-icon">📓</div>
+        <div class="project-name">Personal Diary Web App</div>
+        <p class="project-blurb">Full-stack diary with user authentication, API routes, and persistent PostgreSQL storage. Auth.js + bcrypt handle scoped CRUD; Prisma models enforce per-user data ownership.</p>
+        <div class="tag-row">
+          <span class="tag">Next.js</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Prisma</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-eyebrow">Toolkit</p>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="skill-stack">
+      <div class="g skill-block">
+        <div class="skill-heading">Languages</div>
+        <div class="skill-pills">
+          <span class="pill">Python</span>
+          <span class="pill">Java</span>
+          <span class="pill">TypeScript</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">C</span>
+          <span class="pill">SQL</span>
+        </div>
+      </div>
+      <div class="g skill-block">
+        <div class="skill-heading">Frameworks &amp; Libraries</div>
+        <div class="skill-pills">
+          <span class="pill">Next.js</span>
+          <span class="pill">React</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">PySide6</span>
+          <span class="pill">Prisma</span>
+        </div>
+      </div>
+      <div class="g skill-block">
+        <div class="skill-heading">Databases</div>
+        <div class="skill-pills">
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">SQLite</span>
+          <span class="pill">MySQL</span>
+        </div>
+      </div>
+      <div class="g skill-block">
+        <div class="skill-heading">AI &amp; APIs</div>
+        <div class="skill-pills">
+          <span class="pill">Claude API</span>
+          <span class="pill">Claude Code</span>
+          <span class="pill">ChatGPT</span>
+          <span class="pill">REST APIs</span>
+        </div>
+      </div>
+      <div class="g skill-block">
+        <div class="skill-heading">Developer Tools</div>
+        <div class="skill-pills">
+          <span class="pill">Git</span>
+          <span class="pill">GitHub</span>
+          <span class="pill">GitLab</span>
+          <span class="pill">VS Code</span>
+          <span class="pill">Wireshark</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-eyebrow">Say Hello</p>
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="g contact-card">
+      <p class="contact-lead">I'm currently looking for new opportunities. Whether you have a question, a project in mind, or just want to connect — feel free to reach out.</p>
+      <div class="social-links">
+        <!-- Gmail -->
+        <a class="social-btn g" href="mailto:thanhluan220@gmail.com" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6z" fill="#F4F4F4" stroke="var(--glass-border)" stroke-width="0"/>
+            <path d="M2 6l10 7L22 6" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M2 6h20" stroke="none"/>
+            <!-- Gmail M shape -->
+            <path d="M4 8l8 5.5L20 8" stroke="#EA4335" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <rect x="2" y="6" width="20" height="14" rx="2" fill="none" stroke="var(--glass-border)" stroke-width="1.2"/>
+          </svg>
+          <span>Gmail</span>
+        </a>
+        <!-- GitHub -->
+        <a class="social-btn g" href="https://github.com/luannguyen8894" target="_blank" rel="noopener" title="GitHub">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <!-- LinkedIn -->
+        <a class="social-btn g" href="https://www.linkedin.com/in/luan-nguyen-859012205/" target="_blank" rel="noopener" title="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#0A66C2" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end .page -->
+
+<!-- Music Player -->
+<div class="music-player g" id="music-player">
+  <div class="music-bars" id="music-bars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <span class="music-title">Itsumo Nando Demo</span>
+  <button id="music-btn" onclick="toggleMusic()" aria-label="Play / Pause">▶</button>
+  <input type="range" id="music-vol" min="0" max="1" step="0.05" value="0.4"
+         oninput="setMusicVol(this.value)" aria-label="Volume">
+</div>
+<audio id="bg-audio" loop autoplay muted preload="auto">
+  <source src="Itsumo Nando Demo.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Fixed clock widget -->
+<div class="g hero-clock">
+  <div class="clock-time" id="clock-time">12<span class="clock-sep">:</span>00<span class="clock-sep">:</span>00</div>
+  <div class="clock-ampm" id="clock-ampm">AM</div>
+  <div class="clock-date" id="clock-date"></div>
+</div>
+
+<canvas id="smash-canvas"></canvas>
+<canvas id="shard-canvas"></canvas>
+<div id="hammer-cursor">🔨</div>
+<div id="smash-count">0 smashes</div>
+<button class="hammer-btn g" id="hammer-btn" onclick="toggleHammer()">
+  <span>🔨</span><span id="hammer-btn-label">Smash Mode</span>
+</button>
+
+<div id="chibi-pos">
+  <div id="chibi-anim">
+    <svg width="50" height="66" viewBox="-3 -4 50 70" xmlns="http://www.w3.org/2000/svg">
+      <!-- legs -->
+      <rect x="14" y="46" width="6" height="15" rx="3" fill="#3d2b18"/>
+      <rect x="24" y="46" width="6" height="15" rx="3" fill="#3d2b18"/>
+      <!-- hoodie body -->
+      <rect x="12" y="26" width="20" height="21" rx="5" fill="#38383e"/>
+      <!-- hoodie arms -->
+      <g class="c-arm-l"><rect x="4"  y="27" width="8"  height="16" rx="4" fill="#38383e"/></g>
+      <g class="c-arm-r"><rect x="32" y="27" width="8" height="16" rx="4" fill="#38383e"/></g>
+      <!-- hood behind head -->
+      <ellipse cx="22" cy="16" rx="16" ry="14.5" fill="#38383e"/>
+      <!-- head -->
+      <circle cx="22" cy="14" r="13" fill="#f2c98a"/>
+      <!-- straight hair top -->
+      <rect x="9"  y="1" width="26" height="12" rx="4"   fill="#1a0f06"/>
+      <!-- side coverage -->
+      <rect x="9"  y="8" width="5"  height="12" rx="2.5" fill="#1a0f06"/>
+      <rect x="30" y="8" width="5"  height="12" rx="2.5" fill="#1a0f06"/>
+      <!-- side-swept front bang -->
+      <rect x="11" y="9" width="10" height="5"  rx="2"   fill="#1a0f06"/>
+      <!-- eyes -->
+      <ellipse class="c-eye-l" cx="16" cy="15" rx="3"   ry="3.2" fill="#1a0f06"/>
+      <ellipse class="c-eye-r" cx="28" cy="15" rx="3"   ry="3.2" fill="#1a0f06"/>
+      <!-- eye shines -->
+      <circle cx="17.2" cy="13.5" r="1.1" fill="white"/>
+      <circle cx="29.2" cy="13.5" r="1.1" fill="white"/>
+      <!-- blush -->
+      <ellipse cx="11.5" cy="19" rx="3" ry="1.8" fill="rgba(240,120,80,0.22)"/>
+      <ellipse cx="32.5" cy="19" rx="3" ry="1.8" fill="rgba(240,120,80,0.22)"/>
+      <!-- smile -->
+      <path d="M 15 21 Q 22 26 29 21" stroke="#1a0f06" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- drawstrings -->
+      <line x1="20" y1="27" x2="19" y2="34" stroke="#26262b" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="24" y1="27" x2="25" y2="34" stroke="#26262b" stroke-width="1.4" stroke-linecap="round"/>
+      <!-- kangaroo pocket -->
+      <rect x="15" y="37" width="14" height="7" rx="3" fill="rgba(0,0,0,0.18)"/>
+    </svg>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 Luan Nguyen &middot; George Mason University, Computer Science
+</footer>
+
+<script>
+// Clock
+function updateClock() {
+  const now = new Date();
+  let h = now.getHours();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById('clock-time').innerHTML =
+    `${h}<span class="clock-sep">:</span>${m}<span class="clock-sep">:</span>${s}`;
+  document.getElementById('clock-ampm').textContent = ampm;
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('clock-date').textContent =
+    `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()} ${now.getFullYear()}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+secs.forEach(s => io.observe(s));
+
+// ── Hammer Smash Mode ──
+(function() {
+  const canvas    = document.getElementById('smash-canvas');
+  const ctx       = canvas.getContext('2d');
+  const shardCvs  = document.getElementById('shard-canvas');
+  const shardCtx  = shardCvs.getContext('2d');
+  const hammerEl  = document.getElementById('hammer-cursor');
+  const countEl   = document.getElementById('smash-count');
+  let active = false, hits = 0, swingTimer = null;
+  const shards = [];
+  let rafId = null;
+  let audioCtx = null;
+
+  function initSize(cvs) { cvs.width = window.innerWidth; cvs.height = window.innerHeight; }
+  initSize(canvas); initSize(shardCvs);
+  window.addEventListener('resize', () => {
+    const tmp = document.createElement('canvas');
+    tmp.width = canvas.width; tmp.height = canvas.height;
+    tmp.getContext('2d').drawImage(canvas, 0, 0);
+    initSize(canvas); initSize(shardCvs);
+    ctx.drawImage(tmp, 0, 0);
+  });
+
+  // ── Sound (4 rotating variants) ──
+  let lastSnd = -1;
+  function playGlass() {
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const ac = audioCtx, now = ac.currentTime;
+      let idx; do { idx = Math.floor(Math.random()*4); } while (idx === lastSnd);
+      lastSnd = idx;
+
+      function mkNoise(dur, decay) {
+        const n = Math.ceil(ac.sampleRate * dur);
+        const b = ac.createBuffer(1, n, ac.sampleRate);
+        const d = b.getChannelData(0);
+        for (let i = 0; i < n; i++) d[i] = (Math.random()*2-1) * Math.exp(-i/(ac.sampleRate*decay));
+        const s = ac.createBufferSource(); s.buffer = b; return s;
+      }
+      function playNode(src, vol, filterType, filterFreq, startAt) {
+        const g = ac.createGain(); g.gain.setValueAtTime(vol, startAt||now);
+        if (filterType) {
+          const f = ac.createBiquadFilter(); f.type = filterType; f.frequency.value = filterFreq;
+          src.connect(f); f.connect(g);
+        } else { src.connect(g); }
+        g.connect(ac.destination); src.start(startAt||now);
+      }
+      function thud(freq, end, dur, vol) {
+        const o = ac.createOscillator(); o.type = 'sine';
+        o.frequency.setValueAtTime(freq, now); o.frequency.exponentialRampToValueAtTime(end, now+dur);
+        const g = ac.createGain(); g.gain.setValueAtTime(vol, now); g.gain.exponentialRampToValueAtTime(0.001, now+dur);
+        o.connect(g); g.connect(ac.destination); o.start(now); o.stop(now+dur);
+      }
+
+      if (idx === 0) {
+        // 1 — Sharp crack: quick, punchy
+        playNode(mkNoise(0.06, 0.012), 0.65, 'highpass', 3800);
+        playNode(mkNoise(0.50, 0.065), 0.30, 'highpass', 4200+Math.random()*1800);
+        thud(140, 38, 0.13, 0.22);
+
+      } else if (idx === 1) {
+        // 2 — Heavy shatter: deep rumble, like a thick window
+        playNode(mkNoise(0.20, 0.055), 0.70, 'bandpass', 650+Math.random()*300);
+        playNode(mkNoise(0.75, 0.090), 0.22, 'highpass', 2200);
+        thud(85, 22, 0.25, 0.32);
+        thud(230, 110, 0.08, 0.15);
+
+      } else if (idx === 2) {
+        // 3 — Crystal ding: harmonic overtones, like a wine glass
+        playNode(mkNoise(0.035, 0.008), 0.28, 'highpass', 6500);
+        [850, 1350, 2050, 2750, 3500].forEach((hz, i) => {
+          const o = ac.createOscillator(); o.type = 'sine';
+          o.frequency.value = hz * (0.97 + Math.random()*0.06);
+          const g = ac.createGain(); const t = now + i*0.02;
+          g.gain.setValueAtTime(0, t);
+          g.gain.linearRampToValueAtTime(0.09 - i*0.012, t+0.004);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.38 + Math.random()*0.22);
+          o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t+0.75);
+        });
+
+      } else {
+        // 4 — Spray scatter: rapid cascading bursts
+        for (let i = 0; i < 5; i++) {
+          const t = now + i*0.022;
+          const n = Math.ceil(ac.sampleRate * 0.045);
+          const b = ac.createBuffer(1, n, ac.sampleRate);
+          const d = b.getChannelData(0);
+          for (let j = 0; j < n; j++) d[j] = (Math.random()*2-1) * Math.exp(-j/(ac.sampleRate*0.007));
+          const src = ac.createBufferSource(); src.buffer = b;
+          playNode(src, 0.38 - i*0.06, 'highpass', 4800+Math.random()*3200, t);
+        }
+        thud(105, 32, 0.11, 0.26);
+      }
+    } catch(e) {}
+  }
+
+  // ── Crack drawing (persistent canvas) ──
+  function crackLine(x, y, angle, len, depth) {
+    if (depth > 2 || len < 8) return;
+    ctx.beginPath(); ctx.moveTo(x, y);
+    let cx = x, cy = y;
+    const steps = 5 + Math.floor(Math.random() * 5);
+    ctx.strokeStyle = `rgba(10,15,40,${depth === 0 ? 0.55+Math.random()*0.3 : 0.35+Math.random()*0.2})`;
+    ctx.lineWidth   = depth === 0 ? 1.4+Math.random()*0.8 : 0.7+Math.random()*0.5;
+    ctx.lineCap = 'round';
+    const branches = [];
+    for (let s = 1; s <= steps; s++) {
+      const p = s / steps;
+      cx += Math.cos(angle + (Math.random()-.5)*.45) * (len/steps)*(1-p*.15) + (Math.random()-.5)*7;
+      cy += Math.sin(angle + (Math.random()-.5)*.45) * (len/steps)*(1-p*.15) + (Math.random()-.5)*7;
+      ctx.lineTo(cx, cy);
+      if (depth === 0 && Math.random() < 0.28 && p > 0.25 && p < 0.78) branches.push({x:cx, y:cy});
+    }
+    ctx.stroke();
+    for (const b of branches) {
+      crackLine(b.x, b.y, angle+(Math.random()>.5?1:-1)*(0.5+Math.random()*.9), len*(0.28+Math.random()*.28), depth+1);
+    }
+  }
+
+  function drawCracks(x, y) {
+    const g = ctx.createRadialGradient(x,y,0,x,y,22);
+    g.addColorStop(0,'rgba(0,0,0,0.28)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x,y,22,0,Math.PI*2); ctx.fill();
+    const n = 6 + Math.floor(Math.random()*5);
+    for (let i = 0; i < n; i++)
+      crackLine(x, y, (i/n)*Math.PI*2 + (Math.random()-.5)*.9, 55+Math.random()*75, 0);
+  }
+
+  // ── Glass shards (animated canvas) ──
+  function spawnShards(x, y) {
+    const count = 10 + Math.floor(Math.random() * 9);
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 1.8 + Math.random() * 5.5;
+      const size  = 3 + Math.random() * 14;
+      const numV  = 3 + Math.floor(Math.random() * 3);
+      const verts = [];
+      for (let v = 0; v < numV; v++) {
+        const a = (v/numV)*Math.PI*2 + (Math.random()-.5)*1.1;
+        const r = size * (0.4 + Math.random() * 0.6);
+        verts.push([Math.cos(a)*r, Math.sin(a)*r]);
+      }
+      shards.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - (1 + Math.random()*2.5),
+        rot: Math.random() * Math.PI * 2,
+        rotV: (Math.random()-.5) * 0.18,
+        verts,
+        life: 1,
+        decay: 0.014 + Math.random() * 0.022,
+        light: 0.35 + Math.random() * 0.35
+      });
+    }
+    if (!rafId) rafId = requestAnimationFrame(animateShards);
+  }
+
+  function animateShards() {
+    shardCtx.clearRect(0, 0, shardCvs.width, shardCvs.height);
+    for (let i = shards.length - 1; i >= 0; i--) {
+      const s = shards[i];
+      s.x += s.vx; s.y += s.vy; s.vy += 0.28;
+      s.vx *= 0.98;
+      s.rot += s.rotV; s.life -= s.decay;
+      if (s.life <= 0) { shards.splice(i, 1); continue; }
+      shardCtx.save();
+      shardCtx.translate(s.x, s.y);
+      shardCtx.rotate(s.rot);
+      shardCtx.globalAlpha = s.life;
+      shardCtx.beginPath();
+      shardCtx.moveTo(s.verts[0][0], s.verts[0][1]);
+      for (let v = 1; v < s.verts.length; v++) shardCtx.lineTo(s.verts[v][0], s.verts[v][1]);
+      shardCtx.closePath();
+      shardCtx.fillStyle   = `rgba(12,30,95,${0.48 + s.light * 0.38})`;
+      shardCtx.strokeStyle = `rgba(95,165,245,0.90)`;
+      shardCtx.lineWidth = 1.1;
+      shardCtx.fill(); shardCtx.stroke();
+      shardCtx.restore();
+    }
+    rafId = shards.length > 0 ? requestAnimationFrame(animateShards) : null;
+  }
+
+  // ── Events ──
+  document.addEventListener('mousemove', e => {
+    if (!active) return;
+    hammerEl.style.left = e.clientX + 'px';
+    hammerEl.style.top  = e.clientY + 'px';
+  });
+
+  document.addEventListener('click', e => {
+    if (!active) return;
+    if (e.target.closest('#hammer-btn')) return;
+    e.preventDefault();
+    playGlass();
+    drawCracks(e.clientX, e.clientY);
+    spawnShards(e.clientX, e.clientY);
+    hits++;
+    countEl.textContent = hits + (hits === 1 ? ' smash' : ' smashes');
+    hammerEl.classList.add('swing');
+    clearTimeout(swingTimer);
+    swingTimer = setTimeout(() => hammerEl.classList.remove('swing'), 110);
+    const dx = (Math.random()-.5)*5, dy = (Math.random()-.5)*5;
+    document.body.style.transform = `translate(${dx}px,${dy}px)`;
+    setTimeout(() => document.body.style.transform = '', 90);
+  }, true);
+
+  window.toggleHammer = function() {
+    active = !active;
+    const btn = document.getElementById('hammer-btn');
+    const lbl = document.getElementById('hammer-btn-label');
+    if (active) {
+      document.body.classList.add('hammer-mode');
+      hammerEl.style.display = 'block';
+      countEl.style.display  = 'block';
+      btn.classList.add('active');
+      lbl.textContent = 'Reset & Exit';
+      document.getElementById('chibi-pos').style.display = 'none';
+    } else {
+      document.body.classList.remove('hammer-mode');
+      hammerEl.style.display = 'none';
+      countEl.style.display  = 'none';
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      shardCtx.clearRect(0, 0, shardCvs.width, shardCvs.height);
+      shards.length = 0;
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      hits = 0; countEl.textContent = '0 smashes';
+      btn.classList.remove('active');
+      lbl.textContent = 'Smash Mode';
+      document.getElementById('chibi-pos').style.display = '';
+    }
+  };
+})();
+
+// ── Chibi Cursor ──
+(function() {
+  const pos  = document.getElementById('chibi-pos');
+  const anim = document.getElementById('chibi-anim');
+  let raf = null, mx = 0, my = 0, ctxHidden = false, idleTimer = null;
+
+  function startIdle() { idleTimer = setTimeout(() => anim.classList.add('idle'), 2000); }
+  function stopIdle()  { clearTimeout(idleTimer); anim.classList.remove('idle'); }
+
+  function move() { pos.style.left = mx + 'px'; pos.style.top = my + 'px'; raf = null; }
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    if (ctxHidden && !document.body.classList.contains('hammer-mode')) {
+      ctxHidden = false;
+      pos.style.display = '';
+    }
+    stopIdle(); startIdle();
+    if (!raf) raf = requestAnimationFrame(move);
+  });
+  document.addEventListener('contextmenu', () => {
+    ctxHidden = true;
+    pos.style.display = 'none';
+  });
+  document.addEventListener('mousedown', e => {
+    if (document.body.classList.contains('hammer-mode')) return;
+    if (e.button !== 0 && e.button !== 2) return;
+    stopIdle();
+    const cls = e.button === 2 ? 'c-press-r' : 'c-press-l';
+    anim.classList.remove('c-press-l', 'c-press-r');
+    void anim.offsetWidth;
+    anim.classList.add(cls);
+  });
+  anim.addEventListener('animationend', e => {
+    if (e.target === anim) {
+      anim.classList.remove('c-press-l', 'c-press-r');
+      startIdle();
+    }
+  });
+  document.addEventListener('mouseleave', () => { stopIdle(); pos.style.left = '-200px'; pos.style.top = '-200px'; });
+  startIdle();
+})();
+
+// ── Music Player ──
+function setMusicUI(playing) {
+  document.getElementById('music-btn').textContent = playing ? '⏸' : '▶';
+  document.getElementById('music-bars').classList.toggle('playing', playing);
+}
+function toggleMusic() {
+  const audio = document.getElementById('bg-audio');
+  if (audio.paused) {
+    audio.play().catch(() => {});
+    setMusicUI(true);
+  } else {
+    audio.pause();
+    setMusicUI(false);
+  }
+}
+function setMusicVol(v) {
+  document.getElementById('bg-audio').volume = parseFloat(v);
+  try { localStorage.setItem('music-vol', v); } catch(e) {}
+}
+(function() {
+  const audio = document.getElementById('bg-audio');
+  try {
+    const v = localStorage.getItem('music-vol');
+    if (v !== null) {
+      const vol = parseFloat(v);
+      audio.volume = vol;
+      document.getElementById('music-vol').value = vol;
+    }
+  } catch(e) {}
+
+  // autoplay+muted HTML attrs start audio muted; unmute once playing event fires
+  audio.addEventListener('playing', function onFirstPlay() {
+    audio.muted = false;
+    setMusicUI(true);
+  }, {once: true});
+
+  // Fallback if HTML autoplay was blocked: start on first user gesture
+  function resumeOnGesture() {
+    document.removeEventListener('click',     resumeOnGesture);
+    document.removeEventListener('mousedown', resumeOnGesture);
+    document.removeEventListener('keydown',   resumeOnGesture);
+    audio.muted = false;
+    audio.play().then(() => setMusicUI(true)).catch(() => {});
+  }
+  document.addEventListener('click',     resumeOnGesture);
+  document.addEventListener('mousedown', resumeOnGesture);
+  document.addEventListener('keydown',   resumeOnGesture);
+})();
+</script>
+
+</body>
+</html>
