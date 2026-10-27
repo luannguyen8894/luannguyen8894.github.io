@@ -846,7 +846,7 @@
   </div>
   <span class="music-title">Itsumo Nando Demo</span>
   <button id="music-btn" onclick="toggleMusic()" aria-label="Play / Pause">▶</button>
-  <input type="range" id="music-vol" min="0" max="1" step="0.05" value="0.4"
+  <input type="range" id="music-vol" min="0" max="1" step="0.05" value="0.25"
          oninput="setMusicVol(this.value)" aria-label="Volume">
 </div>
 
@@ -1286,6 +1286,7 @@ function setMusicVol(v) {
 }
 (function() {
   const audio = document.getElementById('bg-audio');
+  audio.volume = 0.25;
   try {
     const v = localStorage.getItem('music-vol');
     if (v !== null) {
