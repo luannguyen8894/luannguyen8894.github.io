@@ -539,6 +539,31 @@
   #music-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
   #music-vol { width: 58px; accent-color: var(--accent); }
 
+  /* ── Email Popover ── */
+  .email-wrap { position: relative; display: inline-flex; }
+  #email-pop {
+    position: absolute; top: calc(100% + 10px); left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px); border-radius: 10px;
+    padding: 7px 14px; font-size: 0.76rem; color: var(--fg);
+    white-space: nowrap; z-index: 300;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.18s, transform 0.18s;
+  }
+  #email-pop.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+
+  /* ── Copy Toast ── */
+  #copy-toast {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(12px);
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px); border-radius: 50px;
+    padding: 10px 22px; font-size: 0.82rem; color: var(--fg);
+    z-index: 99997; opacity: 0; pointer-events: none;
+    transition: opacity 0.22s, transform 0.22s;
+  }
+  #copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
   /* ── Weather Widget ── */
   #weather-widget {
     position: fixed; top: 112px; right: 32px; z-index: 100;
@@ -808,7 +833,8 @@
       <p class="contact-lead">I'm currently looking for new opportunities. Whether you have a question, a project in mind, or just want to connect — feel free to reach out.</p>
       <div class="social-links">
         <!-- Gmail -->
-        <a class="social-btn g" href="mailto:thanhluan220@gmail.com" title="Email">
+        <div class="email-wrap">
+        <a class="social-btn g" href="#" title="Email" onclick="copyEmail(event)">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6z" fill="#F4F4F4" stroke="var(--glass-border)" stroke-width="0"/>
             <path d="M2 6l10 7L22 6" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
@@ -819,6 +845,8 @@
           </svg>
           <span>Gmail</span>
         </a>
+        <div id="email-pop">thanhluan220@gmail.com</div>
+        </div>
         <!-- GitHub -->
         <a class="social-btn g" href="https://github.com/luannguyen8894" target="_blank" rel="noopener" title="GitHub">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -849,6 +877,8 @@
   <input type="range" id="music-vol" min="0" max="1" step="0.05" value="0.25"
          oninput="setMusicVol(this.value)" aria-label="Volume">
 </div>
+
+<div id="copy-toast">✓ Email copied!</div>
 
 <!-- Weather Widget -->
 <div class="g" id="weather-widget">
@@ -1230,6 +1260,21 @@ secs.forEach(s => io.observe(s));
   document.addEventListener('mouseleave', () => { stopIdle(); pos.style.left = '-200px'; pos.style.top = '-200px'; });
   startIdle();
 })();
+
+// ── Copy Email ──
+let toastTimer, popTimer;
+function copyEmail(e) {
+  e.preventDefault();
+  const pop = document.getElementById('email-pop');
+  const toast = document.getElementById('copy-toast');
+  navigator.clipboard.writeText('thanhluan220@gmail.com').then(() => {
+    pop.classList.add('show');
+    toast.classList.add('show');
+    clearTimeout(toastTimer); clearTimeout(popTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    popTimer   = setTimeout(() => pop.classList.remove('show'),   3500);
+  });
+}
 
 // ── Weather Widget ──
 (async function() {
